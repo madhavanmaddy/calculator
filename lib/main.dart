@@ -7,7 +7,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
+      debugShowCheckedModeBanner: false,
       home: CalPage(),
+      // theme: ThemeData(primaryColor: Colors),
     );
   }
 }
@@ -27,7 +30,8 @@ class _CalPageState extends State<CalPage> {
       child: MaterialButton(
         child: Text(
           buttonText,
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: TextStyle(
+            fontSize: 25, color: Colors.black),
         ),
         color: Colors.white,
         elevation: 0.0,
@@ -65,7 +69,10 @@ class _CalPageState extends State<CalPage> {
       
       }
       else if(text == "="){
-        expression = equation;
+        if(equation=="0"){
+
+        }else{
+           expression = equation;
         expression = expression.replaceAll("×", "*");
         expression = expression.replaceAll("÷", "/");
         try{
@@ -79,6 +86,8 @@ class _CalPageState extends State<CalPage> {
           print(e);
           result = "Error";
         }
+        }
+       
       }else if(text =="00"){
         if(equation=="0"){}
         else{
@@ -87,9 +96,12 @@ class _CalPageState extends State<CalPage> {
       }
       else {
         if(equation=="0"){
-          if(text == "÷"|| text=="×"||text=="+"||text=="-"){
+          if(text == "÷"|| text=="×"||text=="+"){
 
-          }else{equation = text;}
+          }else if(text=="-"){
+            equation = "0-";
+          }
+          else{equation = text;}
           
         } else {
           equation = equation + text;
@@ -100,28 +112,26 @@ class _CalPageState extends State<CalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Calculator'),
-      ),
+      backgroundColor: Colors.white,
       body: Container(
         color: Colors.white,
         child: Column(
           children: [
             Expanded(
-              child: Divider(),
+              child: Divider(color: Colors.white,),
             ),
             Container(
               alignment: Alignment.centerRight,
               child: Text(equation,style:TextStyle(fontSize:30)),
               padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
             ),
-            Expanded(child: Divider()),
+            Expanded(child: Divider(color: Colors.white,)),
             Container(
               alignment: Alignment.centerRight,
               child: Text(result,style:TextStyle(fontSize:35,fontWeight: FontWeight.bold)),
               padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
             ),
-            Expanded(child: Divider()),
+            Expanded(child: Divider(color: Colors.white,)),
             Row(
               children: [
                 button("C"),
